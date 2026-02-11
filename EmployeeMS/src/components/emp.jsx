@@ -9,7 +9,7 @@ function Emp() {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get("http://localhost:5000/auth/emp")
+      .get("https://employee-management-system-backend-rz80.onrender.com/auth/emp")
       .then((result) => {
         if (result.data.Status) {
           setEmp(result.data.Result);
@@ -21,7 +21,7 @@ function Emp() {
   }, []);
   const handleDlt = (id) => {
     axios
-      .delete("http://localhost:5000/auth/delete_emp/" + id)
+      .delete("https://employee-management-system-backend-rz80.onrender.com/auth/delete_emp/" + id)
       .then((result) => {
         if (result.data.Status) {
           window.location.reload();
@@ -62,7 +62,7 @@ function Emp() {
               emp.map((e, i) => {
                 const name = e.name || e.Name || "—";
                 const imgSrc = e.image
-                  ? `http://localhost:5000/Images/${e.image}`
+                  ? `https://employee-management-system-backend-rz80.onrender.com/Images/${e.image}`
                   : placeholder;
 
                 return (
