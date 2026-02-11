@@ -16,7 +16,7 @@ function Addemployee() {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get("http://localhost:5000/auth/category")
+      .get("https://employee-management-system-backend-rz80.onrender.com/auth/category")
       .then((result) => {
         console.log(result.data);
         if (result.data.Status) {
@@ -42,7 +42,7 @@ function Addemployee() {
     formData.append("category_id", emp.category_id);
 
     axios
-      .post("http://localhost:5000/auth/add_employee", formData)
+      .post("https://employee-management-system-backend-rz80.onrender.com/auth/add_employee", formData)
       .then((result) => {
         if (result.data.Status) {
           navigate("/dashboard/emp");

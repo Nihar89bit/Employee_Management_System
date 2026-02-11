@@ -14,7 +14,7 @@ const AIChat = () => {
       const token = localStorage.getItem("token");
 
       const res = await axios.post(
-        "http://localhost:5000/api/ai/ask",
+        "https://employee-management-system-backend-rz80.onrender.com/api/ai/ask",
         { question },
         {
           headers: {

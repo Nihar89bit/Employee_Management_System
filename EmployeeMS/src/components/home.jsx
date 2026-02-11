@@ -20,7 +20,7 @@ function Home() {
   }, []);
 
   const AdminRecords = () => {
-    axios.get("http://localhost:5000/auth/admin_records").then((result) => {
+    axios.get("https://employee-management-system-backend-rz80.onrender.com/auth/admin_records").then((result) => {
       if (result.data.Status) {
         setAdmins(result.data.Result);
       } else {
@@ -30,21 +30,21 @@ function Home() {
   };
 
   const adminCount = () => {
-    axios.get("http://localhost:5000/auth/admin_count").then((result) => {
+    axios.get("https://employee-management-system-backend-rz80.onrender.com/auth/admin_count").then((result) => {
       if (result.data.Status) {
         setAdminTotal(result.data.Result[0].admin);
       }
     });
   };
   const empCount = () => {
-    axios.get("http://localhost:5000/auth/emp_count").then((result) => {
+    axios.get("https://employee-management-system-backend-rz80.onrender.com/auth/emp_count").then((result) => {
       if (result.data.Status) {
         setEmpTotal(result.data.Result[0].emp);
       }
     });
   };
   const salaryCount = () => {
-    axios.get("http://localhost:5000/auth/salary_count").then((result) => {
+    axios.get("https://employee-management-system-backend-rz80.onrender.com/auth/salary_count").then((result) => {
       if (result.data.Status) {
         setSalaryTotal(result.data.Result[0].salaryOfEmp);
       }
@@ -57,7 +57,7 @@ function Home() {
 
   const AttendanceSummary = () => {
     axios
-      .get("http://localhost:5000/auth/attendance-summary")
+      .get("https://employee-management-system-backend-rz80.onrender.com/auth/attendance-summary")
       .then((res) => setAttendanceSummary(res.data))
       .catch((err) => console.log("Error fetching in attendance summary", err));
   };

@@ -67,7 +67,7 @@ function Leave() {
     const token = localStorage.getItem("token"); // ✅ get JWT from localStorage
     // console.log("Token being sent:", token); 
     await axios.post(
-      "http://localhost:5000/employee/apply",
+      "https://employee-management-system-backend-rz80.onrender.com/employee/apply",
       {
         start_date,
         end_date,

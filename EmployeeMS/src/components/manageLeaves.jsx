@@ -8,7 +8,7 @@ function ManageLeaves() {
   const fetchleaves = async () => {
     try {
       const result = await axios.get(
-        "http://localhost:5000/employee/all-leaves"
+        "https://employee-management-system-backend-rz80.onrender.com/employee/all-leaves"
       );
       setleaves(result.data);
     } catch (err) {
@@ -17,7 +17,7 @@ function ManageLeaves() {
   };
   const updateStatus = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/employee/leave/${id}/status`, {
+      await axios.put(`https://employee-management-system-backend-rz80.onrender.com/employee/leave/${id}/status`, {
         status,
       });
       fetchleaves(); //refresh after update
