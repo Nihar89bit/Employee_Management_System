@@ -11,7 +11,7 @@ function Dashboard() {
   axios.defaults.withCredentials = true;
   
   const handlelogout = () => {
-    axios.get("http://localhost:5000/auth/logout")
+    axios.get("https://employee-management-system-backend-rz80.onrender.com/auth/logout")
     .then(result => {
       if(result.data.Status){
         localStorage.removeItem("valid")
