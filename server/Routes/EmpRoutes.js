@@ -2,10 +2,8 @@ import express from "express";
 import con from "../utils/db.js";
 import jwt from "jsonwebtoken";
 import bcrypt, { hash } from "bcrypt";
-import multer from "multer";
-import path from "path";
-import { error } from "console";
-import { decode } from "punycode";
+
+
 
 const router = express.Router();
 
