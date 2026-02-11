@@ -16,7 +16,7 @@ function Emplogin() {
   const handleSubmit = (event) => {
   event.preventDefault();
   axios
-    .post("http://localhost:5000/employee/employee_login", values)
+    .post("https://employee-management-system-backend-rz80.onrender.com/employee/employee_login", values)
     .then((result) => {
       if (result.data.loginStatus) {
         // ✅ Save token to localStorage
