@@ -50,7 +50,7 @@ const AIChat = () => {
         }}
       >
         <h2 style={{ margin: 0, fontSize: "28px", fontWeight: "600" }}>
-          🤖 AI Employee Assistant
+          🤖 AI Assistant
         </h2>
         <p style={{ margin: "8px 0 0 0", opacity: 0.9, fontSize: "14px" }}>
           Ask me anything about your employees
