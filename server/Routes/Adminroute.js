@@ -45,27 +45,32 @@ const verifyUser = (req, res, next) => {
 ========================= */
 router.post("/adminlogin", (req, res) => {
   const sql = "SELECT * FROM admin WHERE email = ? AND password = ?";
+  
   con.query(sql, [req.body.email, req.body.password], (err, result) => {
-    if (err) return res.json({ loginStatus: false, Error: "Query error" });
+    if (err) return res.json({ loginStatus: false, Error: "Query Error" });
+
     if (result.length > 0) {
       const email = result[0].email;
+
       const token = jwt.sign(
-        { role: "admin", email: email, id: result[0].id },
-        "jwt_secret_key",
-        { expiresIn: "1d" },
+        { role: "admin", email: email },
+        process.env.JWT_SECRET,
+        { expiresIn: "1d" }
       );
+
       res.cookie("token", token, {
         httpOnly: true,
-        secure: true, // required for HTTPS (Render)
-        sameSite: "None", // required for Vercel → Render
+        secure: true,          // 🔥 REQUIRED for Render + HTTPS
+        sameSite: "None"       // 🔥 REQUIRED for cross-site
       });
 
       return res.json({ loginStatus: true });
     } else {
-      return res.json({ loginStatus: false, Error: "Wrong email or password" });
+      return res.json({ loginStatus: false, Error: "Wrong Email or Password" });
     }
   });
 });
+
 
 /* =========================
    CATEGORY
@@ -225,11 +230,12 @@ router.get("/attendance-summary", verifyUser, (req, res) => {
 ========================= */
 router.get("/logout", (req, res) => {
   res.clearCookie("token", {
-  httpOnly: true,
-  secure: true,
-  sameSite: "None"
-});
+    httpOnly: true,
+    secure: true,
+    sameSite: "None"
+  });
   return res.json({ Status: true });
 });
+
 
 export { router as adminRouter };
