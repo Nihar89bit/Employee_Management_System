@@ -16,7 +16,7 @@ function EditEmployee() {
       const [category, setCategory] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/auth/category")
+      .get("https://employee-management-system-backend-rz80.onrender.comauth/category")
       .then((result) => {
         if (result.data.Status) {
           setCategory(result.data.Result);
@@ -25,7 +25,7 @@ function EditEmployee() {
         }
       })
       .catch((err) => console.log(err));
-      axios.get('http://localhost:5000/auth/employee/'+id)
+      axios.get('https://employee-management-system-backend-rz80.onrender.com/auth/employee/'+id)
       .then(result =>{
         setEmp({
           ...emp,
@@ -40,7 +40,7 @@ function EditEmployee() {
 
   const handleSubmit = (e) =>{
     e.preventDefault()
-    axios.put('http://localhost:5000/auth/editEmp/'+id, emp)
+    axios.put('https://employee-management-system-backend-rz80.onrender.com/auth/editEmp/'+id, emp)
     .then(result =>{
       if(result.data.Status){
         navigate('/dashboard/emp')
