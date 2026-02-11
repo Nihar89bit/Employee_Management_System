@@ -8,7 +8,7 @@ function Start() {
   axios.defaults.withCredentials=true;
   //opening page will be verify 
   useEffect(() =>{   //use effect tells the react component to do something after rendering
-    axios.get('http://localhost:5000/verify')
+    axios.get('https://employee-management-system-backend-rz80.onrender.com/verify')
     .then(result =>{
       if(result.data.Status){
         if(result.data.role === "admin"){
