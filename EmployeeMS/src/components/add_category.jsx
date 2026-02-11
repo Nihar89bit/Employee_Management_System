@@ -7,7 +7,7 @@ function Addcategory() {
   const navigate = useNavigate()
   const handleSubmit = (e)=>{
     e.preventDefault()
-    axios.post('http://localhost:5000/auth/add_category',{category})
+    axios.post('https://employee-management-system-backend-rz80.onrender.com/auth/add_category',{category})
     .then(result => {
       if(result.data.Status){
         navigate('/dashboard/category')
