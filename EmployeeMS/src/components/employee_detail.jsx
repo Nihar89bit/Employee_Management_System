@@ -8,7 +8,7 @@ function Emp_detail() {
 
   const handleLogout = () => {
     axios
-      .get("http://localhost:5000/employee/logout")
+      .get("https://employee-management-system-backend-rz80.onrender.com/employee/logout")
       .then((result) => {
         if (result.data.Status) {
           localStorage.removeItem("valid");
@@ -20,7 +20,7 @@ function Emp_detail() {
   const { id } = useParams();
   useEffect(() => {
     axios
-      .get("http://localhost:5000/employee/detail/" + id)
+      .get("https://employee-management-system-backend-rz80.onrender.com/employee/detail/" + id)
       .then((result) => setEmp(result.data[0]))
       .catch((err) => console.log(err));
   }, [id]);
@@ -36,7 +36,7 @@ function Emp_detail() {
     if (!token) return;
 
     axios
-      .get("http://localhost:5000/employee/my-leaves", {
+      .get("https://employee-management-system-backend-rz80.onrender.com/employee/my-leaves", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -58,7 +58,7 @@ function Emp_detail() {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.post(
-        `http://localhost:5000/employee/attendance/${type}`,
+        `https://employee-management-system-backend-rz80.onrender.com/employee/attendance/${type}`,
         { employee_id: id },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -109,7 +109,7 @@ function Emp_detail() {
                       <img
                         src={
                           emp.photo ||
-                          `http://localhost:5000/Images/` + emp.image
+                          `https://employee-management-system-backend-rz80.onrender.com/Images/` + emp.image
                         }
                         alt={`${emp.name}'s photo`}
                         className="rounded-circle border border-3 border-primary shadow"
