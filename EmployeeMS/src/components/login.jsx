@@ -15,7 +15,7 @@ function Login() {
   
   const handleSubmit = (event)=>{
     event.preventDefault()
-    axios.post('http://localhost:5000/auth/adminlogin',values)
+    axios.post('https://employee-management-system-backend-rz80.onrender.com/auth/adminlogin',values)
     .then(result => {
       if(result.data.loginStatus){
         localStorage.setItem("valid",true)
