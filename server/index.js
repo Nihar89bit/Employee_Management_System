@@ -15,7 +15,8 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://splendid-faloodeh-Sbof00.netlify.app"
+    "https://splendid-faloodeh-Sbof00.netlify.app",
+    "https://employee-management-system-rrd2.vercel.app"
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
