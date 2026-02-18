@@ -16,7 +16,9 @@ app.use(cors({
   origin: [
     "http://localhost:5173",
     "https://splendid-faloodeh-Sbof00.netlify.app",
-    "https://employee-management-system-rrd2.vercel.app"
+    "https://employee-management-system-rrd2.vercel.app",
+    "https://employee-management-system-rrd2-6o7mg0j18.vercel.app",
+    "https://employee-management-s-git-a2283f-niharbunu23-gmailcoms-projects.vercel.app"
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
