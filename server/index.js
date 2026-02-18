@@ -61,12 +61,32 @@ app.use("/employee", EmpRouter);
 app.use("/api/ai", verifyUser, aiRoutes);
 
 
-// Optional verify check
-app.get("/verify", verifyUser, (req, res) => {
-  res.json({
-    Status: true,
-    id: req.id,
-    role: req.role
+// Optional verify check - checks token if present but doesn't require it
+app.get("/verify", (req, res) => {
+  const token = req.cookies.token;
+  
+  if (!token) {
+    return res.json({
+      Status: false,
+      id: null,
+      role: null
+    });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.json({
+        Status: false,
+        id: null,
+        role: null
+      });
+    }
+
+    res.json({
+      Status: true,
+      id: decoded.email,
+      role: decoded.role
+    });
   });
 });
 
