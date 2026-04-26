@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { apiUrl } from "../lib/api";
 
 const AIChat = () => {
   const [question, setQuestion] = useState("");
@@ -11,20 +12,9 @@ const AIChat = () => {
 
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-
-      const res = await axios.post(
-        "https://employee-management-system-backend-rz80.onrender.com/api/ai/ask",
-        { question },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
+      const res = await axios.post(apiUrl("/api/ai/ask"), { question });
       setAnswer(res.data.answer);
-    } catch (err) {
+    } catch (_err) {
       setAnswer("Error contacting AI service");
     }
     setLoading(false);
@@ -50,7 +40,7 @@ const AIChat = () => {
         }}
       >
         <h2 style={{ margin: 0, fontSize: "28px", fontWeight: "600" }}>
-          🤖 AI Assistant
+          AI Assistant
         </h2>
         <p style={{ margin: "8px 0 0 0", opacity: 0.9, fontSize: "14px" }}>
           Ask me anything about your employees
@@ -71,7 +61,7 @@ const AIChat = () => {
             placeholder="Ask something like: count employees"
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            onKeyPress={(e) => e.key === "Enter" && askAI()}
+            onKeyDown={(e) => e.key === "Enter" && askAI()}
             style={{
               width: "100%",
               padding: "15px 20px",
@@ -82,8 +72,6 @@ const AIChat = () => {
               transition: "border-color 0.3s",
               boxSizing: "border-box",
             }}
-            onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-            onBlur={(e) => (e.target.style.borderColor = "#e0e0e0")}
           />
         </div>
 
@@ -109,19 +97,6 @@ const AIChat = () => {
                 ? "0 4px 15px rgba(102, 126, 234, 0.4)"
                 : "none",
           }}
-          onMouseEnter={(e) => {
-            if (question && !loading) {
-              e.target.style.transform = "translateY(-2px)";
-              e.target.style.boxShadow = "0 6px 20px rgba(102, 126, 234, 0.5)";
-            }
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.transform = "translateY(0)";
-            e.target.style.boxShadow =
-              question && !loading
-                ? "0 4px 15px rgba(102, 126, 234, 0.4)"
-                : "none";
-          }}
         >
           {loading ? "Thinking..." : "Ask AI"}
         </button>
@@ -135,19 +110,6 @@ const AIChat = () => {
               fontSize: "15px",
             }}
           >
-            <div
-              style={{
-                display: "inline-block",
-                width: "20px",
-                height: "20px",
-                border: "3px solid #f3f3f3",
-                borderTop: "3px solid #667eea",
-                borderRadius: "50%",
-                animation: "spin 1s linear infinite",
-                marginRight: "10px",
-                verticalAlign: "middle",
-              }}
-            ></div>
             <span>Analyzing your question...</span>
           </div>
         )}
@@ -187,13 +149,6 @@ const AIChat = () => {
           </div>
         )}
       </div>
-
-      <style>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      `}</style>
     </div>
   );
 };

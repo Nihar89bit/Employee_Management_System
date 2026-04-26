@@ -1,37 +1,36 @@
-import React, { useState } from 'react';
-import './login.css';
-import axios from 'axios'
+import React, { useState } from "react";
+import "./login.css";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from "../lib/api";
 
 function Emplogin() {
   const [values, setValues] = useState({
     email: "",
     password: "",
   });
-  const [error, seterror] = useState();
+  const [error, setError] = useState();
   const navigate = useNavigate();
 
-  axios.defaults.withCredentials = true; //this will add tokens in cookies
+  axios.defaults.withCredentials = true;
 
   const handleSubmit = (event) => {
-  event.preventDefault();
-  axios
-    .post("https://employee-management-system-backend-rz80.onrender.com/employee/employee_login", values)
-    .then((result) => {
-      if (result.data.loginStatus) {
-        // ✅ Save token to localStorage
-        localStorage.setItem("token", result.data.token);  
-        // console.log("Token saved:", result.data.token);
-        localStorage.setItem("employeeId", result.data.id);
-        localStorage.setItem("valid", true);
+    event.preventDefault();
+    axios
+      .post(apiUrl("/employee/employee_login"), values)
+      .then((result) => {
+        if (result.data.loginStatus) {
+          localStorage.setItem("token", result.data.token);
+          localStorage.setItem("employeeId", result.data.id);
+          localStorage.setItem("valid", true);
+          navigate(`/employee_detail/${result.data.id}`);
+        } else {
+          setError(result.data.Error);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
-        navigate("/employee_detail/" + result.data.id);
-      } else {
-        seterror(result.data.Error);
-      }
-    })
-    .catch((err) => console.log(err));
-};
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 loginpage">
       <div className="glass-card p-4 rounded-4 text-white shadow">
@@ -61,9 +60,7 @@ function Emplogin() {
               autoComplete="off"
               placeholder="Enter Password"
               className="form-control rounded-3"
-              onChange={(e) =>
-                setValues({ ...values, password: e.target.value })
-              }
+              onChange={(e) => setValues({ ...values, password: e.target.value })}
             />
           </div>
           <button type="submit" className="btn btn-primary w-30 rounded-3 mb-2">

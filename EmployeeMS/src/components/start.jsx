@@ -1,33 +1,45 @@
 import axios from "axios";
 import React, { useEffect } from "react";
-import {useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { apiUrl } from "../lib/api";
 
 function Start() {
-  const navigate=useNavigate();
-  axios.defaults.withCredentials=true;
-  //opening page will be verify 
-  useEffect(() =>{   //use effect tells the react component to do something after rendering  //http://localhost:5000
-    axios.get('https://employee-management-system-backend-rz80.onrender.com/verify')
-    .then(result =>{
-      if(result.data.Status){
-        if(result.data.role === "admin"){
-          navigate('/dashboard')
-        }else{
-          navigate('/employee_detail/'+result.data.id)
+  const navigate = useNavigate();
+
+  axios.defaults.withCredentials = true;
+
+  useEffect(() => {
+    axios
+      .get(apiUrl("/verify"))
+      .then((result) => {
+        if (result.data.Status) {
+          if (result.data.role === "admin") {
+            navigate("/dashboard");
+          } else {
+            navigate(`/employee_detail/${result.data.id}`);
+          }
         }
-      }
-    }).catch(err => console.log(err))
-  }, [])
+      })
+      .catch((err) => console.log(err));
+  }, [navigate]);
+
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 loginpage">
       <div className="glass-card p-4 rounded-4 text-white shadow">
         <h2 className="text-center mb-4">Login As </h2>
         <div className="d-flex justify-content-between mt-5 mb-2">
-          <button type="button" className="btn btn-primary" onClick={ () =>{navigate('/employee_login')}}>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => navigate("/employee_login")}
+          >
             Employee
           </button>
-          <button type="button" className="btn btn-success" onClick={ () =>{navigate('/adminlogin')}}>
+          <button
+            type="button"
+            className="btn btn-success"
+            onClick={() => navigate("/adminlogin")}
+          >
             Admin
           </button>
         </div>

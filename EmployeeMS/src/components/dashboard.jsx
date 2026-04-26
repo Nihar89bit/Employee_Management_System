@@ -1,81 +1,77 @@
 import React, { useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { FiHome, FiUsers, FiGrid, FiUser, FiLogOut, FiMenu, FiX } from "react-icons/fi";
+import {
+  FiHome,
+  FiUsers,
+  FiGrid,
+  FiUser,
+  FiLogOut,
+  FiMenu,
+  FiX,
+} from "react-icons/fi";
 import "./dash.css";
 import axios from "axios";
+import { apiUrl } from "../lib/api";
 
 function Dashboard() {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  
+
   axios.defaults.withCredentials = true;
-  
+
   const handlelogout = () => {
-    axios.get("https://employee-management-system-backend-rz80.onrender.com/auth/logout")
-    .then(result => {
-      if(result.data.Status){
-        localStorage.removeItem("valid")
-        navigate('/')
+    axios.get(apiUrl("/auth/logout")).then((result) => {
+      if (result.data.Status) {
+        localStorage.removeItem("valid");
+        navigate("/");
       }
-    })
-  };
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
-
-  const closeSidebar = () => {
-    setSidebarOpen(false);
+    });
   };
 
   return (
     <div className="dashboard-layout">
-      {/* Mobile Menu Toggle */}
-      <button className="mobile-menu-toggle" onClick={toggleSidebar}>
+      <button className="mobile-menu-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
         {sidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
       </button>
 
-      {/* Sidebar Overlay for Mobile */}
-      <div 
-        className={`sidebar-overlay ${sidebarOpen ? 'active' : ''}`} 
-        onClick={closeSidebar}
+      <div
+        className={`sidebar-overlay ${sidebarOpen ? "active" : ""}`}
+        onClick={() => setSidebarOpen(false)}
       ></div>
 
-      {/* Sidebar */}
-      <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
-        <Link to="/dashboard" className="brand" onClick={closeSidebar}>
+      <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
+        <Link to="/dashboard" className="brand" onClick={() => setSidebarOpen(false)}>
           Admin
         </Link>
         <ul className="nav-links">
           <li>
-            <Link to="/dashboard" onClick={closeSidebar}>
+            <Link to="/dashboard" onClick={() => setSidebarOpen(false)}>
               <FiHome className="icon" /> Dashboard
             </Link>
           </li>
           <li>
-            <Link to="/dashboard/emp" onClick={closeSidebar}>
+            <Link to="/dashboard/emp" onClick={() => setSidebarOpen(false)}>
               <FiUsers className="icon" /> Manage Employees
             </Link>
           </li>
           <li>
-            <Link to="/dashboard/category" onClick={closeSidebar}>
+            <Link to="/dashboard/category" onClick={() => setSidebarOpen(false)}>
               <FiGrid className="icon" /> Category
             </Link>
           </li>
           <li>
-            <Link to="/dashboard/limo" onClick={closeSidebar}>
+            <Link to="/dashboard/limo" onClick={() => setSidebarOpen(false)}>
               <FiUser className="icon" /> Limo
             </Link>
           </li>
           <li onClick={handlelogout}>
-            <Link to="/" onClick={closeSidebar}>
+            <Link to="/" onClick={() => setSidebarOpen(false)}>
               <FiLogOut className="icon" /> Logout
             </Link>
           </li>
         </ul>
       </div>
 
-      {/* Main Content Area */}
       <div className="main-content">
         <div className="content-header">
           <h4>Employee Management System</h4>
